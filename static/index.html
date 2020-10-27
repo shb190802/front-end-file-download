@@ -20,6 +20,7 @@
 			/* overflow: hidden; */
 		}
 
+
 		.clear {
 			clear: both;
 		}
@@ -42,6 +43,20 @@
 			text-align: center;
 			float: left;
 		}
+
+		.field__item.error a,
+		.field__item.error button {
+			color: red;
+			text-decoration: none;
+			padding: 5px;
+		}
+
+		.field__item a,
+		.field__item button {
+			color: #000;
+			text-decoration: none;
+			padding: 5px;
+		}
 	</style>
 </head>
 
@@ -50,13 +65,16 @@
 	<div class="field">
 		<div class="field__title">直接下载</div>
 		<div class="field__item">
-			<a href="/file/logo.zip">a标签直接下载</a>
+			<a href="/file/logo.zip">a标签直接下载zip</a>
 		</div>
 		<div class="field__item">
-			<button onclick="window.open('/file/logo.zip')">window.open</button>
+			<button onclick="window.open('/file/logo.zip')">window.open zip</button>
 		</div>
 		<div class="field__item">
-			<button onclick="window.location.href = '/file/logo.zip'">location.href</button>
+			<button onclick="window.location.href = '/file/logo.zip'">location.href zip</button>
+		</div>
+		<div class="field__item error">
+			<a href="/file/logo.jpg">a标签下载图片图片</a>
 		</div>
 		<div class="clear"></div>
 	</div>
@@ -64,7 +82,7 @@
 	<div class="field">
 		<div class="field__title">直接下载（a标签download下载）</div>
 		<div class="field__item">
-			<a href="/file/logo.jpg" download="文件名.jpg">a标签直接下载</a>
+			<a href="/file/logo.jpg" download="文件名.jpg">a标签直接下载图片</a>
 		</div>
 		<div class="field__item">
 			<button onclick="download('文件名','/file/logo.jpg')">js模拟a标签download</button>
@@ -85,7 +103,7 @@
 		<div class="field__item">
 			<button onclick="authDownload('文件名','/authDownload/logo.jpg','123456')">js鉴权下载</button>
 		</div>
-		<div class="field__item">
+		<div class="field__item error">
 			<button onclick="authDownload('文件名','/authDownload/logo.jpg','111111')">js错误鉴权下载</button>
 		</div>
 		<div class="clear"></div>
