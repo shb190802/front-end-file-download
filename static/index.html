@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>文件下载测试</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.field {
+			position: relative;
+			padding: 30px 15px 15px;
+			margin: 15px 15px 30px;
+			border: solid 1px #ccc;
+			clear: both;
+			/* overflow: hidden; */
+		}
+
+		.clear {
+			clear: both;
+		}
+
+		.field__title {
+			position: absolute;
+			left: 15px;
+			top: -12px;
+			background: #FFF;
+			border: solid 1px #ccc;
+			padding: 5px 10px;
+		}
+
+		.field__item {
+			position: relative;
+			width: 150px;
+			height: 40px;
+			line-height: 40px;
+			font-size: 14px;
+			text-align: center;
+			float: left;
+		}
+	</style>
+</head>
+
+<body>
+	<!--直接下载-->
+	<div class="field">
+		<div class="field__title">直接下载</div>
+		<div class="field__item">
+			<a href="/file/logo.zip">a标签直接下载</a>
+		</div>
+		<div class="field__item">
+			<button onclick="window.open('/file/logo.zip')">window.open</button>
+		</div>
+		<div class="field__item">
+			<button onclick="window.location.href = '/file/logo.zip'">location.href</button>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!--直接下载（a标签download下载）-->
+	<div class="field">
+		<div class="field__title">直接下载（a标签download下载）</div>
+		<div class="field__item">
+			<a href="/file/logo.jpg" download="文件名.jpg">a标签直接下载</a>
+		</div>
+		<div class="field__item">
+			<button onclick="download('文件名','/file/logo.jpg')">js模拟a标签download</button>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!--直接下载（后端兼容处理attachment）-->
+	<div class="field">
+		<div class="field__title">直接下载（后端兼容处理attachment）</div>
+		<div class="field__item">
+			<a href="/download/logo.jpg">a标签直接下载</a>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!--鉴权下载-->
+	<div class="field">
+		<div class="field__title">鉴权下载</div>
+		<div class="field__item">
+			<button onclick="authDownload('文件名','/authDownload/logo.jpg','123456')">js鉴权下载</button>
+		</div>
+		<div class="field__item">
+			<button onclick="authDownload('文件名','/authDownload/logo.jpg','111111')">js错误鉴权下载</button>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<script src="./libs/axios.min.js"></script>
+	<script>
+		function download(filename, link) {
+			let DownloadLink = document.createElement('a');
+			DownloadLink.style = 'display: none'; // 创建一个隐藏的a标签
+			DownloadLink.download = filename;
+			DownloadLink.href = link;
+			document.body.appendChild(DownloadLink);
+			DownloadLink.click(); // 触发a标签的click事件
+			document.body.removeChild(DownloadLink);
+		}
+
+		function authDownload(filename, link, auth) {
+			axios({
+				method: 'get',
+				url: link,
+				responseType: 'blob',
+				headers: {
+					authorization: auth
+				}
+			}).then(res => {
+				console.log(res)
+				let fileUrl = window.URL.createObjectURL(res.data)
+				download(filename, fileUrl) // 方法二使用到的a标签download方式。
+				window.URL.revokeObjectURL(fileUrl)
+			})
+		}
+	</script>
+</body>
+
+</html>
