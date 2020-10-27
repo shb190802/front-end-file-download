@@ -4,15 +4,6 @@
 
 前端开发中，经常遇到文件下载的功能。这里对常见的文件下载方式做一些总结。
 
-测试代码仓库地址：
-```
-git clone https://github.com/shb190802/front-end-file-download.git
-cd front-end-file-download
-npm install
-node app.js
-// 浏览器打卡 http://localhost:3000
-```
-
 
 
 ## 一、直接下载
@@ -117,5 +108,17 @@ axios({
 
 
 ## 测试代码
+
+
+
+测试代码仓库地址：
+```
+git clone https://github.com/shb190802/front-end-file-download.git
+cd front-end-file-download
+npm install
+node app.js
+// 浏览器打卡 http://localhost:3000
+```
+
 
 ![](./static/file/file_download.png)
